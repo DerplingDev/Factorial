@@ -1,0 +1,13 @@
+{
+  "itemGroup.factorial": "Example Mod Tab",
+  "block.factorial.example_block": "Example Block",
+  "item.factorial.example_item": "Example Item",
+
+  "factorial.configuration.title": "Factorial Configs",
+  "factorial.configuration.section.factorial.common.toml": "Factorial Configs",
+  "factorial.configuration.section.factorial.common.toml.title": "Factorial Configs",
+  "factorial.configuration.items": "Item List",
+  "factorial.configuration.logDirtBlock": "Log Dirt Block",
+  "factorial.configuration.magicNumberIntroduction": "Magic Number Text",
+  "factorial.configuration.magicNumber": "Magic Number"
+}
