@@ -1,5 +1,11 @@
 package com.derpling.factorial;
 
+import com.derpling.factorial.Blocks.OreNodeBlockStateProvider;
+import com.derpling.factorial.Items.OreNodeItemModelProvider;
+import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.data.event.GatherDataEvent;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -20,6 +26,7 @@ public class Factorial {
 
     public Factorial(IEventBus modEventBus, ModContainer modContainer) {
         modEventBus.addListener(this::commonSetup);
+        modEventBus.addListener(this::gatherDataEvent);
 
         ModRegistry.registerRegistries(modEventBus);
 
@@ -29,11 +36,32 @@ public class Factorial {
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {
-        LOGGER.info("Factorial's factories say hello from common setup!");
+        LOGGER.info("Factorizing with Factorial!");
     }
 
     @SubscribeEvent
     public void onServerStarting(ServerStartingEvent event) {
-        LOGGER.info("Factorial is preparing to industrialize this server!");
+        LOGGER.info("Factorial is industrializing this server!");
+    }
+
+    public void gatherDataEvent(GatherDataEvent event) {
+        DataGenerator generator = event.getGenerator();
+        PackOutput output = generator.getPackOutput();
+        ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
+
+        generator.addProvider(
+                event.includeClient(),
+                new OreNodeBlockStateProvider(output, existingFileHelper)
+        );
+
+        generator.addProvider(
+                event.includeClient(),
+                new OreNodeItemModelProvider(output, existingFileHelper)
+        );
+
+        generator.addProvider(
+                event.includeClient(),
+                new OreNodeLanguageProvider(output)
+        );
     }
 }
